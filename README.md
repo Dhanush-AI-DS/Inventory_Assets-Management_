@@ -102,6 +102,11 @@ Visit `http://localhost:8501` in your browser.
 
 ---
 
+## Login Credintials
+<img width="604" height="228" alt="image" src="https://github.com/user-attachments/assets/0d9a592e-2aa9-40ba-87c9-e1fd1938b3a1" />
+
+---
+
 ## 🧪 Usage Guide
 
 1. **Login**: Use your assigned credentials.
