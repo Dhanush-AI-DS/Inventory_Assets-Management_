@@ -1,0 +1,6 @@
+streamlit
+pandas
+sqlalchemy
+openpyxl
+bcrypt
+python-dotenv
