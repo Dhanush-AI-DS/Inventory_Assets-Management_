@@ -7,6 +7,7 @@ from email.mime.multipart import MIMEMultipart
 import os
 import json
 from datetime import datetime
+import streamlit as st
 
 def ingest_inventory_excel(db: Session, file, user_id=None):
     try:
@@ -134,10 +135,16 @@ def generate_email_body(requester_name, item_details, qty_requested, purpose):
     return html_content
 
 def send_email_notification(to_email: str, subject: str, body: str, is_html: bool = False):
-    smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-    smtp_port = int(os.getenv("SMTP_PORT", 587))
-    sender_email = os.getenv("SMTP_EMAIL")
-    sender_password = os.getenv("SMTP_PASSWORD")
+    # Helper to get config from secrets or env
+    def get_config(key, default=None):
+        if key in st.secrets:
+            return st.secrets[key]
+        return os.getenv(key, default)
+
+    smtp_server = get_config("SMTP_SERVER", "smtp.gmail.com")
+    smtp_port = int(get_config("SMTP_PORT", 587))
+    sender_email = get_config("SMTP_EMAIL")
+    sender_password = get_config("SMTP_PASSWORD")
     
     if not sender_email or sender_email == "dummy@example.com":
         print(f"[MOCK EMAIL] To: {to_email} | Subject: {subject} | Body: (HTML Content omitted in logs)" if is_html else f"[MOCK EMAIL] To: {to_email} | Subject: {subject} | Body: {body}")
